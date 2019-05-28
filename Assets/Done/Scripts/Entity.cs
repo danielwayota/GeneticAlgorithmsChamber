@@ -16,8 +16,6 @@ namespace Done
 
         private float time = 0;
 
-        private EntityState state;
-
         private Rigidbody body;
 
         // ========================================================
@@ -41,19 +39,14 @@ namespace Done
 
             this.body = GetComponent<Rigidbody>();
             this.geneIndex = 0;
-            this.state = EntityState.MOVING;
             this.body.velocity = Vector3.zero;
         }
 
         // ========================================================
         private void FixedUpdate()
         {
-            if (this.state == EntityState.MOVING)
-            {
-                Vector3 forceDirection = this.genes[this.geneIndex];
-
-                this.body.AddForce(forceDirection * this.forcePower);
-            }
+            Vector3 forceDirection = this.genes[this.geneIndex];
+            this.body.AddForce(forceDirection * this.forcePower);
         }
 
         // ========================================================
@@ -63,26 +56,11 @@ namespace Done
             if (this.time > this.beatTime)
             {
                 this.time -= this.beatTime;
-
-                switch(this.state)
+                if (this.geneIndex < (this.geneCount-1))
                 {
-                    case EntityState.MOVING:
-                        this.state = EntityState.IDLE;
-                        break;
-                    case EntityState.IDLE:
-                        if (this.geneIndex < (this.geneCount-1))
-                        {
-                            this.geneIndex++;
-                        }
-                        this.state = EntityState.MOVING;
-                        break;
+                    this.geneIndex++;
                 }
             }
         }
-    }
-
-    enum EntityState
-    {
-        MOVING, IDLE
     }
 }

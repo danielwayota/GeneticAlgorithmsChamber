@@ -4,10 +4,14 @@ namespace Done
 {
     public class Population : MonoBehaviour
     {
+        [Header("Entity prefab")]
         public GameObject entityPrefab;
 
+        [Header("Population")]
         public int populationSize = 8;
+        public float generationTime = 10f;
 
+        [Header("Map points")]
         public Transform startPoint;
         public Transform targetPoint;
 
@@ -15,7 +19,6 @@ namespace Done
 
 
         private float time = 0;
-        private float timeOut = 10f;
 
         // ========================================================
         void Start()
@@ -33,9 +36,9 @@ namespace Done
         {
             this.time += Time.deltaTime;
 
-            if (this.time > this.timeOut)
+            if (this.time > this.generationTime)
             {
-                this.time -= this.timeOut;
+                this.time -= this.generationTime;
 
                 // Generate new population
                 Entity[] newPopulation = new Entity[this.populationSize];

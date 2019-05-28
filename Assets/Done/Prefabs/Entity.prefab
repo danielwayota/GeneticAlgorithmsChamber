@@ -122,4 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb240125877177438824ac1e24f2868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcePower: 4
+  geneCount: 10
+  forcePower: 10

@@ -5,14 +5,16 @@ namespace Done
     [RequireComponent(typeof(Rigidbody))]
     public class Entity : MonoBehaviour
     {
+        [Header("DNA")]
+        public int geneCount = 1;
         public Vector3[] genes { get; set; }
-        public float forcePower = 32;
+        [Header("Movement")]
+        public float forcePower = 1;
+        public float beatTime = 0.5f;
 
         private int geneIndex;
-        private int geneCount = 100;
 
         private float time = 0;
-        private float timeOut = 0.5f;
 
         private EntityState state;
 
@@ -21,7 +23,6 @@ namespace Done
         // ========================================================
         void Start()
         {
-
             if (this.genes == null)
             {
                 Vector3[] startGenes = new Vector3[this.geneCount];
@@ -59,9 +60,9 @@ namespace Done
         void Update()
         {
             this.time += Time.deltaTime;
-            if (this.time > this.timeOut)
+            if (this.time > this.beatTime)
             {
-                this.time -= this.timeOut;
+                this.time -= this.beatTime;
 
                 switch(this.state)
                 {

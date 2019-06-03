@@ -4,6 +4,9 @@ namespace Done
 {
     public class Population : MonoBehaviour
     {
+        [Header("UI")]
+        public StatusWindow statusWindow;
+
         [Header("Entity prefab")]
         public GameObject entityPrefab;
 
@@ -17,8 +20,9 @@ namespace Done
 
         private Entity[] population;
 
-
         private float time = 0;
+
+        private int currentGeneration;
 
         // ========================================================
         void Start()
@@ -29,6 +33,8 @@ namespace Done
             {
                 this.population[i] = this.CreateEntity();
             }
+            this.currentGeneration = 1;
+            this.statusWindow.SetGenerationNumber(this.currentGeneration);
         }
 
         // ========================================================
@@ -38,6 +44,8 @@ namespace Done
 
             if (this.time > this.generationTime)
             {
+                this.currentGeneration++;
+                this.statusWindow.SetGenerationNumber(this.currentGeneration);
                 this.time -= this.generationTime;
 
                 // Generate new population
@@ -111,7 +119,7 @@ namespace Done
 
             float percent = Mathf.Clamp01(entityDistance / maxDistance);
 
-            return 1 - percent;
+            return Mathf.Pow(1 - percent, 2);
         }
 
         // ========================================================
@@ -141,7 +149,14 @@ namespace Done
 
             for (int i = 0; i < a.Length; i++)
             {
-                offspring[i] = i % 2 == 0 ? a[i] : b[i];
+                if (i % 2 == 0)
+                {
+                    offspring[i] = a[i];
+                }
+                else
+                {
+                    offspring[i] = b[i];
+                }
             }
 
             return offspring;

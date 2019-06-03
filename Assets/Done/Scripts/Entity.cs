@@ -8,6 +8,7 @@ namespace Done
         [Header("DNA")]
         public int geneCount = 1;
         public Vector3[] genes { get; set; }
+
         [Header("Movement")]
         public float forcePower = 1;
         public float beatTime = 0.5f;
